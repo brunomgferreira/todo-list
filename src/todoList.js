@@ -2,7 +2,7 @@ import { compareAsc, toDate } from "date-fns";
 import Project from './project'
 import Task from "./task";
 
-class TodoList {
+export default class TodoList {
     constructor() {
         this.projects = [];
         this.projects.push(new Project('Inbox'));
