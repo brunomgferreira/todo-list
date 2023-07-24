@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="nav">
+        <h2 class="title" id="title">To-do List</h2>
+        <button class="btn active" id="inboxBtn">Inbox</button>
+        <button class="btn" id="todayBtn">Today</button>
+        <button class="btn" id="weekBtn">Week</button>
+        <h2 class="projects" id="projects">Projects</h2>
+        <button class="btn" id="workBtn">Work</button>
+        <button class="btn" id="addProjectBtn">Add Project</button>
+    </nav>
+    <div class="content">
+        <main class="main" id="main">
+            <h1>Inbox</h1>
+            <div class="button-task">
+                <div class="task-panel left-task-panel">
+                    <i class="far fa-circle"></i>
+                    <h4>A task that i need to do aaaaaaaaaaaaa</h4>
+                </div>
+                <div class="task-panel center-task-panel">
+                    <h4 class="projectName">Project Name</h4>
+                </div>
+                <div class="task-panel right-task-panel">
+                    <h4>No date</h4>
+                    <button class="close-btn">x</button>
+                </div>
+            </div>
+            <div class="button-task">
+                <div class="task-panel left-task-panel">
+                    <i class="far fa-circle"></i>
+                    <h4>A task that i need to do</h4>
+                </div>
+                <div class="task-panel middle-task-panel">
+                    <h4 class="projectName">Project Name</h4>
+                </div>
+                <div class="task-panel right-task-panel">
+                    <h4>No date</h4>
+                    <button class="close-btn">x</button>
+                </div>
+            </div>
+            <button class="btn" id="addProjectBtn">Add Task</button>
+        </main>
+        <footer class="footer">
+            <p id="copyright">
+                Copyright ©
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                B. Ferreira
+            </p>
+            <a href="https://github.com/brunomgferreira/" target="_blank"><i class="fab fa-github"></i></a>
+        </footer>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+</html>
