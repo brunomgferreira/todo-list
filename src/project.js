@@ -1,4 +1,5 @@
 import { toDate, isToday, isThisWeek, subDays } from "date-fns";
+import Task from "./task";
 
 export default class Project {
     constructor(name) {
