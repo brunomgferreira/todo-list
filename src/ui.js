@@ -60,6 +60,11 @@ export default class UI {
         projectBtns.forEach((projectBtn) =>
             projectBtn.addEventListener('click', UI.handleProjectButton)
         );
+
+        // Delete Project Button
+
+        const deleteProjectBtn = document.getElementById('delete-project-btn');
+        deleteProjectBtn.addEventListener('click', UI.removeProject);
     }
 
     static openInboxTasks() {
@@ -128,8 +133,29 @@ export default class UI {
 
     static openProject(projectName, projectBtn) {
         // OPEN PROJECT
-        console.log(projectBtn);
+        const projectTitle = document.getElementById('project-title');
+        const deleteProjectBtn = document.getElementById('delete-project-btn');
+
+        if (
+            projectName == 'Inbox' ||
+            projectName == 'Today' ||
+            projectName == 'Week'
+            ) {
+            deleteProjectBtn.style.display = 'none';
+        }
+        else {
+            deleteProjectBtn.style.display = 'block';
+        }
+
+        projectTitle.textContent = projectName;
     } 
+
+    static removeProject() {
+        // Remove a Project
+        const projectTitle = document.getElementById('project-title');
+        const projectName = projectTitle.textContent;
+        UI.deleteProject(projectName);
+    }
 
     static openAddProjectPopup() {
         // OPEN ADD PROJECT POPUP
