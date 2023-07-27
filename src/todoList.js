@@ -27,7 +27,7 @@ export default class TodoList {
     }
 
     addProject(newProject) {
-        if (this.projects.contains(newProject.getName())) return;
+        if (this.projects.find((project) => project.name === newProject.name)) return;
         this.projects.push(newProject);
     }
 
