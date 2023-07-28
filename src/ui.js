@@ -178,13 +178,42 @@ export default class UI {
 
     static loadTasks(projectName) {
         // LOAD TASKS
+        UI.clearTasks();
         const tasks = Storage.getTodoList().getProject(projectName).getTasks();
-        console.log(tasks);
+        tasks.forEach((task) => {
+            UI.createTask(task);
+        })
     }
 
+    static clearTasks() {
+        // CLEAR TASK LIST
+        const tasksList = document.getElementById('tasks-list');
+        tasksList.innerHTML = '';
+    }
+
+    static createTask(task) {
+        // CREATE A NEW TASK DOM
+        const tasksList = document.getElementById('tasks-list');
+        tasksList.innerHTML += `
+        <div class="button-task">
+            <div class="task-panel left-task-panel">
+                <i class="far fa-circle"></i>
+                <h4>${task.name}</h4>
+            </div>
+            <div class="task-panel center-task-panel">
+                <h4 class="projectName">${task.project}</h4>
+            </div>
+            <div class="task-panel right-task-panel">
+                <h4>${task.dueDate}</h4>
+            </div>
+        </div>
+        `;
+    }
 
     static addNewTask() {
-        // ADD NEW TASK
+        // ADD NEW TASK  
         
     }
+
+
 }

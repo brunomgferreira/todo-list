@@ -170,6 +170,22 @@ i {
     border: none;
 }
 
+// ADD TASK POPUP
+
+.add-task-popup {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.input-add-task-popup {
+    width: 100%;
+    font-size: 16px;
+    height: 20px;
+}
+
 // FOOTER
 
 .footer {
