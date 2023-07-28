@@ -1,4 +1,4 @@
-import { add, format } from 'date-fns'
+import { format } from 'date-fns'
 import Storage from './storage'
 import Project from './project'
 import Task from './task'
@@ -6,6 +6,8 @@ import Task from './task'
 export default class UI {
 
     static loadHomePage() {
+        Storage.addTask('A', new Task('AAAAAAAAA', 'A', 'No date'));
+        Storage.addTask('A', new Task('BBBBB', 'A', '7/28/2023'));
         UI.loadProjects();
         UI.openProject('Inbox', document.getElementById('inbox-btn'));
     }
@@ -148,6 +150,7 @@ export default class UI {
         }
 
         projectTitle.textContent = projectName;
+        UI.loadTasks(projectName);
     } 
 
     static removeProject() {
@@ -173,4 +176,15 @@ export default class UI {
         addProjectBtn.style.display = 'block';
     }
 
+    static loadTasks(projectName) {
+        // LOAD TASKS
+        const tasks = Storage.getTodoList().getProject(projectName).getTasks();
+        console.log(tasks);
+    }
+
+
+    static addNewTask() {
+        // ADD NEW TASK
+        
+    }
 }

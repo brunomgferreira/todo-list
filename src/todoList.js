@@ -44,9 +44,9 @@ export default class TodoList {
             
             const todayTasks = project.getTasksToday();
             todayTasks.forEach((task) => {
-                const taskName = `${task.getName()}`;
-                const taskProject = `${task.getProject()}`;
-                this.getProject('Today').addTask(new Task(taskName, taskProject, task.getDate()));
+                const taskName = `${task.name}`;
+                const taskProject = `${task.project}`;
+                this.getProject('Today').addTask(new Task(taskName, taskProject, task.dueDate));
             })
         })
     }
@@ -59,9 +59,9 @@ export default class TodoList {
             
             const todayTasks = project.getTasksToday();
             todayTasks.forEach((task) => {
-                const taskName = `${task.getName()}`;
-                const taskProject = `${task.getProject()}`;
-                this.getProject('Week').addTask(new Task(taskName, taskProject, task.getDate()));
+                const taskName = `${task.name}`;
+                const taskProject = `${task.project}`;
+                this.getProject('Week').addTask(new Task(taskName, taskProject, task.dueDate));
             })
         })
 

@@ -1,5 +1,5 @@
-import { toDate, isToday, isThisWeek, subDays } from "date-fns";
-import Task from "./task";
+import { toDate, isToday, isThisWeek, subDays } from 'date-fns';
+import Task from './task';
 
 export default class Project {
     constructor(name) {
@@ -24,16 +24,16 @@ export default class Project {
     }
 
     getTask(taskName) {
-        return this.tasks.find((task) => task.getName() === taskName);
+        return this.tasks.find((task) => task.name === taskName);
     }
 
     contains(taskName) {
-        return this.tasks.some((task) => task.getName() === taskName);
+        return this.tasks.some((task) => task.name === taskName);
     }
 
     addTask(newTask) {
-        if (this.task.find((task) => task.getName() === newTask.name)) return;
-        this.task.push(newTask);
+        if (this.tasks.find((task) => task.name === newTask.name)) return;
+        this.tasks.push(newTask);
     }
 
     deleteTask(taskName) {
@@ -42,14 +42,14 @@ export default class Project {
 
     getTasksToday() {
         return this.tasks.filter((task) => {
-            const taskDate = new Date(task.getDateFormatted());
+            const taskDate = new Date(Task.getDateFormatted(task));
             return isToday(toDate(taskDate));
         })
     }
 
     getTasksThisWeek() {
         return this.tasks.filter((task) => {
-            const taskDate = new Date(task.getDateFormatted());
+            const taskDate = new Date(Task.getDateFormatted(task));
             return isThisWeek(subDays(toDate(taskDate),1));
         })
     }

@@ -29,10 +29,10 @@ export default class Task {
         return this.dueDate;
     }
 
-    getDateFormatted() {
-        const day = this.dueDate.split('/')[0];
-        const month = this.dueDate.split('/')[1];
-        const year = this.dueDate.split('/')[2];
+    static getDateFormatted(task) {
+        const day = task.dueDate.split('/')[0];
+        const month = task.dueDate.split('/')[1];
+        const year = task.dueDate.split('/')[2];
         return `${day}/${month}/${year}`;
     }
 }
