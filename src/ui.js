@@ -133,7 +133,7 @@ export default class UI {
         UI.closeAddProjectPopup();
     }
 
-    static openProject(projectName, projectBtn) {
+    static openProject(projectName) {
         // OPEN PROJECT
         const projectTitle = document.getElementById('project-title');
         const deleteProjectBtn = document.getElementById('delete-project-btn');
@@ -151,6 +151,7 @@ export default class UI {
 
         projectTitle.textContent = projectName;
         UI.loadTasks(projectName);
+        UI.initTasksButtons();
     } 
 
     static removeProject() {
@@ -210,10 +211,44 @@ export default class UI {
         `;
     }
 
-    static addNewTask() {
-        // ADD NEW TASK  
-        
+    static initTasksButtons() {
+        // ADD EVENT LISTENERS TO THE TASKS BUTTONS
+        const addTaskBtn = document.getElementById('add-task-btn');
+
+        addTaskBtn.addEventListener('click', UI.openAddTaskPopup);
     }
 
+    static initAddTaskPopupButtons() {
+        // ADD EVENT LISTENERS TO THE ADD TASK POPUP BUTTONS
+        const popupAddTaskBtn = document.getElementById('popup-add-task-btn');
+        const popupAddTaskCancelBtn = document.getElementById('popup-add-task-cancel-btn');
 
+        popupAddTaskBtn.addEventListener('click', UI.addNewTask);
+        popupAddTaskCancelBtn.addEventListener('click', UI.closeAddTaskPopup)
+    }
+
+    static openAddTaskPopup() {
+        // OPEN ADD TASK POPUP
+        const addTaskPopup = document.getElementById('add-task-popup');
+        const addTaskBtn = document.getElementById('add-task-btn');
+
+        addTaskPopup.style.display = 'flex';
+        addTaskBtn.style.display = 'none';
+
+        UI.initAddTaskPopupButtons();
+    }
+
+    static closeAddTaskPopup() {
+        // CANCEL ADD TASK POPUP
+        const addTaskPopup = document.getElementById('add-task-popup');
+        const addTaskBtn = document.getElementById('add-task-btn');
+
+        addTaskPopup.style.display = 'none';
+        addTaskBtn.style.display = 'block';
+    }
+
+    static addNewTask() {
+        // ADD NEW TASK  
+        console.log('aaaaaaa');
+    }
 }
