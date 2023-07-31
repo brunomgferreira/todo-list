@@ -7,7 +7,7 @@ export default class UI {
 
     static loadHomePage() {
         Storage.addTask('A', new Task('AAAAAAAAA', 'A', 'No date'));
-        Storage.addTask('A', new Task('BBBBB', 'A', '7/28/2023'));
+        Storage.addTask('A', new Task('BBBBB', 'A', '7/31/2023'));
         UI.loadProjects();
         UI.openProject('Inbox', document.getElementById('inbox-btn'));
     }
@@ -71,26 +71,25 @@ export default class UI {
 
     static openInboxTasks() {
         // OPEN INBOX TASKS
-        UI.openProject('Inbox', this);
+        UI.openProject('Inbox');
     }
     
     static openTodayTasks() {
         // OPEN TODAY TASKS
         Storage.updateTodayProject();
-        UI.openProject('Today', this);
+        UI.openProject('Today');
     }
 
     static openWeekTasks() {
         // OPEN WEEK TASKS
         Storage.updateWeekProject();
-        UI.openProject('Week', this);
+        UI.openProject('Week');
     }
 
     static handleProjectButton(e) {
         // HANDLE PROJECT BUTTONS
         const projectName = e.target.textContent;
-        const projectBtn = e.target;
-        UI.openProject(projectName, projectBtn);
+        UI.openProject(projectName);
     }
 
     static createProject(projectName) {
@@ -107,7 +106,7 @@ export default class UI {
         Storage.deleteProject(projectName);
         UI.clearProjects();
         UI.loadProjects();
-        UI.openProject('Inbox', this);
+        UI.openProject('Inbox');
     }
 
     static addProject() {
@@ -211,7 +210,7 @@ export default class UI {
         tasksList.innerHTML += `
         <div class="button-task">
             <div class="task-panel left-task-panel">
-                <i class="far fa-circle"></i>
+                <i class="far fa-circle" task-status-button></i>
                 <h4>${task.name}</h4>
             </div>
             <div class="task-panel center-task-panel">
@@ -222,13 +221,34 @@ export default class UI {
             </div>
         </div>
         `;
+
+        UI.initTasksButtons()
     }
 
     static initTasksButtons() {
         // ADD EVENT LISTENERS TO THE TASKS BUTTONS
         const addTaskBtn = document.getElementById('add-task-btn');
+        const taskStatusBtns = document.querySelectorAll('[task-status-button]');
 
         addTaskBtn.addEventListener('click', UI.openAddTaskPopup);
+
+        taskStatusBtns.forEach((taskBtn) =>
+            taskBtn.addEventListener('click', UI.handleTaskStatusButton)
+        );
+    }
+
+    static handleTaskStatusButton(e) {
+        // HANDLE TASK STATUS BUTTONS
+        const taskProjectTitle = e.target.parentNode.parentNode.children[1].children[0];
+        const taskProjectName = taskProjectTitle.textContent;
+        const taskName = e.target.parentNode.children[1].textContent;
+        
+        const projectName = document.getElementById('project-title').textContent;
+
+        Storage.deleteTask(taskProjectName, taskName)
+        Storage.updateTodayProject();
+        Storage.updateWeekProject();
+        UI.loadTasks(projectName);
     }
 
     static initAddTaskPopupButtons() {
