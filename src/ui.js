@@ -137,6 +137,7 @@ export default class UI {
         // OPEN PROJECT
         const projectTitle = document.getElementById('project-title');
         const deleteProjectBtn = document.getElementById('delete-project-btn');
+        const addTaskBtn = document.getElementById('add-task-btn');
 
         if (
             projectName == 'Inbox' ||
@@ -148,6 +149,18 @@ export default class UI {
         else {
             deleteProjectBtn.style.display = 'block';
         }
+
+        // CHANGE THIS LATER
+        if (
+            projectName == 'Today' ||
+            projectName == 'Week'
+            ) {
+            addTaskBtn.style.display = 'none';
+        }
+        else {
+            addTaskBtn.style.display = 'block';
+        }
+        // CHANGE THIS LATER
 
         projectTitle.textContent = projectName;
         UI.loadTasks(projectName);
@@ -249,6 +262,27 @@ export default class UI {
 
     static addNewTask() {
         // ADD NEW TASK  
-        console.log('aaaaaaa');
+        const projectName = document.getElementById('project-title').textContent;
+        const addTaskPopupInput = document.getElementById('input-add-task-popup');
+
+        const taskName = addTaskPopupInput.value;
+
+        if (taskName === '') {
+            alert("Task name can't be empty");
+            return;
+        }
+
+        if (Storage.getTodoList().getProject(projectName).contains(taskName)) {
+            addTaskPopupInput.value = '';
+            alert("Task name must be different");
+            return;
+        }
+        
+        addTaskPopupInput.value = '';
+        const task = new Task(taskName, projectName, 'No date');
+
+        Storage.addTask(projectName, task);
+        UI.createTask(task);
+        UI.closeAddTaskPopup();
     }
 }
