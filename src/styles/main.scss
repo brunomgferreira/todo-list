@@ -131,10 +131,20 @@ h1 {
 
 // TASK
 
+.fa-circle:hover {
+    cursor: pointer;
+}
+
 .button-task {
     display: flex;
     justify-content: space-between;
     gap: 40px;
+    padding: 0 30px;
+    border-radius: 30px;
+}
+
+.button-task:hover {
+    background-color: rgba(0,0,0,0.08);
 }
 
 .task-panel {
@@ -149,6 +159,10 @@ h1 {
     align-items: center;
     max-width: 50%;
     min-width: 50%;
+}
+
+.left-task-panel h4, .right-task-panel h4 {
+    cursor: pointer;
 }
 
 i {
@@ -170,6 +184,30 @@ i {
     border: none;
 }
 
+// RENAME TASK
+
+.rename-popup {
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+.rename-popup i {
+    cursor: pointer;
+}
+
+// CHANGE DUE DATE
+
+.change-dueDate-popup {
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+.change-dueDate-popup  i{
+    cursor: pointer;
+}
+
 // ADD TASK POPUP
 
 .add-task-popup {
@@ -180,7 +218,7 @@ i {
     gap: 40px;
 }
 
-.input-add-task-popup {
+input {
     width: 100%;
     font-size: 16px;
     height: 20px;

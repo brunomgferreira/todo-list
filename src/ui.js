@@ -211,13 +211,23 @@ export default class UI {
         <div class="button-task">
             <div class="task-panel left-task-panel">
                 <i class="far fa-circle" task-status-button></i>
-                <h4>${task.name}</h4>
+                <h4 task-name>${task.name}</h4>
+                <div class="rename-popup">
+                    <input class="change-task-name-input" type="text" value="${task.name}">
+                    <i class="fa fa-check"></i>
+                    <i class="fas fa-times"></i>
+                </div>
             </div>
             <div class="task-panel center-task-panel">
                 <h4 class="projectName">${task.project}</h4>
             </div>
             <div class="task-panel right-task-panel">
-                <h4>${task.dueDate}</h4>
+                <h4 task-dueDate>${task.dueDate}</h4>
+                <div class="change-dueDate-popup">
+                    <input class="change-due-date-input" type="date">
+                    <i class="fa fa-check"></i>
+                    <i class="fas fa-times"></i>
+                </div>
             </div>
         </div>
         `;
@@ -229,11 +239,21 @@ export default class UI {
         // ADD EVENT LISTENERS TO THE TASKS BUTTONS
         const addTaskBtn = document.getElementById('add-task-btn');
         const taskStatusBtns = document.querySelectorAll('[task-status-button]');
+        const taskNames = document.querySelectorAll('[task-name]');
+        const taskDueDates = document.querySelectorAll('[task-dueDate]');
 
         addTaskBtn.addEventListener('click', UI.openAddTaskPopup);
 
         taskStatusBtns.forEach((taskBtn) =>
             taskBtn.addEventListener('click', UI.handleTaskStatusButton)
+        );
+
+        taskNames.forEach((taskNameBtn) =>
+            taskNameBtn.addEventListener('click', UI.openRenamePopup)
+        );
+
+        taskDueDates.forEach((taskDueDateBtn) =>
+            taskDueDateBtn.addEventListener('click', UI.openSetDatePopup)
         );
     }
 
@@ -249,6 +269,72 @@ export default class UI {
         Storage.updateTodayProject();
         Storage.updateWeekProject();
         UI.loadTasks(projectName);
+    }
+
+    static openRenamePopup(e) {
+        // OPEN RENAME POPUP
+        const taskName = e.target;
+        const taskRenamePopup = e.target.parentNode.children[2];
+        
+        const changeBtn = taskRenamePopup.children[1];
+        const closeBtn = taskRenamePopup.children[2];
+
+        changeBtn.addEventListener('click', UI.renameTask);
+        closeBtn.addEventListener('click', UI.closeRenamePopup);
+
+        taskName.style.display = 'none';
+        taskRenamePopup.style.display = 'flex';
+    }
+
+    static openSetDatePopup(e) {
+        // OPEN CHANGE DUE DATE POPUP
+        const dueDate = e.target;
+        const taskChangeDueDatePopup = e.target.parentNode.children[1];
+       
+        const changeBtn = taskChangeDueDatePopup.children[1];
+        const closeBtn = taskChangeDueDatePopup.children[2];
+
+        changeBtn.addEventListener('click', UI.setDueDate);
+        closeBtn.addEventListener('click', UI.closeSetDatePopup);
+
+        dueDate.style.display = 'none';
+        taskChangeDueDatePopup.style.display = 'flex';
+    }
+
+    static renameTask(e) {
+        // RENAME TASK
+        const taskRenameInput = e.target.parentNode.children[0];
+        const taskName = e.target.parentNode.parentNode.children[1].textContent;
+        const newTaskName = taskRenameInput.value;
+        const projectName = e.target.parentNode.parentNode.parentNode.children[1].children[0].textContent;
+        Storage.renameTask(projectName, taskName, newTaskName);
+        Storage.updateTodayProject();
+        Storage.updateWeekProject();
+        UI.loadTasks(projectName);
+    }
+
+    static setDueDate(e) {
+        // SET NEW DUE DATE
+        const taskDueDateInput = e.target.parentNode.children[0];
+        console.log(taskDueDateInput.value);
+    }
+
+    static closeRenamePopup(e) {
+        // OPEN RENAME POPUP
+        const taskName = e.target.parentNode.parentNode.children[1];
+        const taskRenamePopup = e.target.parentNode;
+
+        taskName.style.display = 'block';
+        taskRenamePopup.style.display = 'none';
+    }
+
+    static closeSetDatePopup(e) {
+        // OPEN CHANGE DUE DATE POPUP
+        const dueDate = e.target.parentNode.parentNode.children[0];
+        const taskChangeDueDatePopup = e.target.parentNode;
+        
+        dueDate.style.display = 'block';
+        taskChangeDueDatePopup.style.display = 'none';
     }
 
     static initAddTaskPopupButtons() {

@@ -50,7 +50,8 @@ export default class Storage {
 
     static renameTask(projectName, taskName, newTaskName) {
         const todoList = Storage.getTodoList();
-        todoList.getProject(projectName).getTask(taskName).setName(newTaskName);
+        const task = todoList.getProject(projectName).getTask(taskName);
+        Task.setName(task, newTaskName);
         Storage.saveTodoList(todoList);
     }
 

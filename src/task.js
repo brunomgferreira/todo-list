@@ -5,8 +5,8 @@ export default class Task {
         this.dueDate = dueDate;
     }
 
-    setName(name) {
-        this.name = name;
+    static setName(task, newName) {
+        task.name = newName;
     }
 
     getName() {
