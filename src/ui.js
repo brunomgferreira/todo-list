@@ -307,6 +307,18 @@ export default class UI {
         const taskName = e.target.parentNode.parentNode.children[1].textContent;
         const newTaskName = taskRenameInput.value;
         const projectName = e.target.parentNode.parentNode.parentNode.children[1].children[0].textContent;
+        
+        if (newTaskName === '') {
+            alert("Task new name can't be empty");
+            return;
+        }
+
+        if (Storage.getTodoList().getProject(projectName).contains(newTaskName) && newTaskName !== taskName) {
+            taskRenameInput.value = taskName;
+            alert("Tasks names must be different");
+            return;
+        }
+        
         Storage.renameTask(projectName, taskName, newTaskName);
         Storage.updateTodayProject();
         Storage.updateWeekProject();
