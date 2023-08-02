@@ -7,7 +7,7 @@ export default class UI {
 
     static loadHomePage() {
         Storage.addTask('A', new Task('AAAAAAAAA', 'A', 'No date'));
-        Storage.addTask('A', new Task('BBBBB', 'A', '7/31/2023'));
+        Storage.addTask('A', new Task('BBBBB', 'A', '31/07/2023'));
         UI.loadProjects();
         UI.openProject('Inbox', document.getElementById('inbox-btn'));
     }
@@ -222,7 +222,7 @@ export default class UI {
                 <h4 class="projectName">${task.project}</h4>
             </div>
             <div class="task-panel right-task-panel">
-                <h4 task-dueDate>${task.dueDate}</h4>
+                <h4 task-dueDate>${Task.getDateFormatted(task)}</h4>
                 <div class="change-dueDate-popup">
                     <input class="change-due-date-input" type="date">
                     <i class="fa fa-check"></i>
@@ -327,8 +327,19 @@ export default class UI {
 
     static setDueDate(e) {
         // SET NEW DUE DATE
+        const taskProjectName = e.target.parentNode.parentNode.parentNode.children[1].children[0].textContent;
+        const projectName = document.getElementById('project-title').textContent;
+        const taskName = e.target.parentNode.parentNode.parentNode.children[0].children[1].textContent;
         const taskDueDateInput = e.target.parentNode.children[0];
-        console.log(taskDueDateInput.value);
+        const newDueDate = taskDueDateInput.value
+
+        if (!newDueDate) return
+        const newDueDateFormatted = format(new Date(newDueDate), 'dd/MM/yyyy');    
+        Storage.setTaskDate(taskProjectName, taskName, newDueDateFormatted);
+
+        Storage.updateTodayProject();
+        Storage.updateWeekProject();
+        UI.loadTasks(projectName);
     }
 
     static closeRenamePopup(e) {

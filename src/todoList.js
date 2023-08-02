@@ -57,21 +57,22 @@ export default class TodoList {
         this.projects.forEach((project) => {
             if(project.getName() === 'Today' || project.getName() === 'Week') return;
             
-            const todayTasks = project.getTasksToday();
-            todayTasks.forEach((task) => {
+            const weekTasks = project.getTasksThisWeek();
+            weekTasks.forEach((task) => {
                 const taskName = `${task.name}`;
                 const taskProject = `${task.project}`;
                 this.getProject('Week').addTask(new Task(taskName, taskProject, task.dueDate));
             })
         })
 
+        
         this.getProject('Week').setTasks(
             this.getProject('Week')
                 .getTasks()
                 .sort((taskA, taskB) => 
                     compareAsc(
-                        toDate(taskA.getDateFormatted()),
-                        toDate(taskB.getDateFormatted())))
+                        toDate(new Date(Task.getDateFormatted(taskA))),
+                        toDate(new Date(Task.getDateFormatted(taskB)))))
         )
     }
 }

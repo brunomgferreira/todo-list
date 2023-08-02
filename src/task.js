@@ -21,8 +21,8 @@ export default class Task {
         return this.project
     }
 
-    setDate(dueDate) {
-        this.dueDate = dueDate;
+    static setDate(task, newDueDate) {
+        task.dueDate = newDueDate;
     }
 
     getDate() {
@@ -30,9 +30,11 @@ export default class Task {
     }
 
     static getDateFormatted(task) {
+        // console.log(task.dueDate);
+        if(task.dueDate === 'No date') return 'No date';
         const day = task.dueDate.split('/')[0];
         const month = task.dueDate.split('/')[1];
         const year = task.dueDate.split('/')[2];
-        return `${day}/${month}/${year}`;
+        return `${month}/${day}/${year}`;
     }
 }
